@@ -28,6 +28,12 @@ router.put('/api/workouts/:id', (req, res) => {
         workoutId,
         { $push: {exercises: exercise} }
     )
+    .then(workout => {
+        res.json(workout)
+    })
+    .catch(err => {
+        res.json(err)
+    })
 })
 
 module.exports = router

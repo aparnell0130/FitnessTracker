@@ -39,8 +39,21 @@ const ExerciseSchema = new Schema({
             trim: true
         }
     }]
-    
-});
+},
+    {
+        toJSON: {
+            virtuals: true
+        }
+    }
+);
+ExerciseSchema.virtual('totalDuration').get(function () {
+    let time = 0
+    const durations = this.exercises
+    for (let i = 0; i < durations.length; i++) {
+        time += durations[i].duration;
 
+    }
+    return time
+})
 const Exercise = mongoose.model('Exercise', ExerciseSchema);
 module.exports = Exercise
